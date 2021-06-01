@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>com.nuagic.myip</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <script>
+var websocket = null;
+var pluginUUID = null;
+var DestinationEnum = Object.freeze({"HARDWARE_AND_SOFTWARE":0, "HARDWARE_ONLY":1, "SOFTWARE_ONLY":2})
+function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, inInfo) {
+  pluginUUID = inPluginUUID
+  websocket = new WebSocket("ws://127.0.0.1:" + inPort);
+  registerPlugin = function(inPluginUUID) {
+    var json = {
+      "event": inRegisterEvent,
+      "uuid": inPluginUUID
+    };
+    websocket.send(JSON.stringify(json));
+  };
+  websocket.onopen = function() {
+    registerPlugin(pluginUUID);
+  };
+  websocket.onmessage = function (evt) { 
+    var jsonObj = JSON.parse(evt.data);
+    var event = jsonObj['event'];
+    var context = jsonObj['context'];
+    if(event == "keyUp") {
+      print_ip(context);
+    } else if(event == "willAppear") {
+      print_ip(context);
+    }
+  };
+  websocket.onclose = function() { 
+    // Websocket is closed
+  };
+  print = function(context, text) {
+    var json = {
+      "event": "setTitle",
+      "context": context,
+      "payload": {
+        "title": text,
+        "target": DestinationEnum.HARDWARE_AND_SOFTWARE
+      }
+    };
+    websocket.send(JSON.stringify(json));
+  };
+  print_ip = function(context) {
+    get_ip().then(function(data) {
+      console.log(data);
+      print(context, 
+        data.ip + "\n"
+        + data.asn_org.replace(' ', "\n") + "\n"
+        + data.country + "\n"
+        + data.region_name
+      );
+    });
+  };
+  get_ip = async function() {
+    response = await fetch("https://ifconfig.co/json")
+    data = await response.json();
+    return data;
+  };
+};
+    </script>
+
+</body>
+
+</html>

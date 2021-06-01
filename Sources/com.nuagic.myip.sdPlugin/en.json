@@ -1,0 +1,8 @@
+{
+  "Description": "Display your public IP address", 
+  "Name": "My IP", 
+  "com.nuagic.myip.action": {
+    "Name": "My IP", 
+    "Tooltip": "Display your public IP address."
+  }
+}
