@@ -12,6 +12,7 @@
 - code written in Javascript
 - cross-platform (macOS, Windows)
 
+![](preview.png)
 
 # Installation
 
