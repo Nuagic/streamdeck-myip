@@ -11,18 +11,18 @@
         }
       ], 
       "SupportedInMultiActions": false,
-      "Tooltip": "How many times did you get pwned today? Keep track with this counter.", 
-      "UUID": "com.nuagic.counter.action"
+      "Tooltip": "Display your public IP address", 
+      "UUID": "com.nuagic.myip.action"
     }
   ], 
   "SDKVersion": 2,
   "Author": "Nuagic", 
   "CodePath": "code.html", 
-  "Description": "Track the number of times you press a key.", 
+  "Description": "Display your public IP address.", 
   "Name": "My IP", 
   "Icon": "pluginIcon", 
-  "URL": "https://www.elgato.com/gaming/stream-deck", 
-  "Version": "1.4",
+  "URL": "https://github.com/Nuagic/streamdeck-myip", 
+  "Version": "1.0",
   "OS": [
     {
         "Platform": "mac", 
