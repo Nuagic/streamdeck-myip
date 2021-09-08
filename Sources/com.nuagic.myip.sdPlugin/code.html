@@ -28,10 +28,13 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
     var jsonObj = JSON.parse(evt.data);
     var event = jsonObj['event'];
     var context = jsonObj['context'];
+    var settings = jsonObj['payload'] !== undefined && jsonObj['payload']['settings'] !== undefined ? jsonObj['payload']['settings'] : {};
     if(event == "keyUp") {
-      print_ip(context);
+      print_ip(context, settings);
     } else if(event == "willAppear") {
-      print_ip(context);
+      print_ip(context, settings);
+    } else if(event == "didReceiveSettings") {
+      print_ip(context, settings);
     }
   };
   websocket.onclose = function() { 
@@ -48,15 +51,19 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
     };
     websocket.send(JSON.stringify(json));
   };
-  print_ip = function(context) {
+  print_ip = function(context, settings) {
     get_ip().then(function(data) {
-      console.log(data);
-      print(context, 
-        data.ip + "\n"
-        + data.asn_org.replace(' ', "\n") + "\n"
-        + data.country + "\n"
-        + data.region_name
-      );
+      //console.log(data);
+			var to_display = []
+			if(settings["ip"])
+				to_display.push(data.ip)
+			if(settings["asn"])
+				to_display.push(data.asn_org.replace(' ', "\n"))
+			if(settings["country"])
+				to_display.push(data.country)
+			if(settings["region"])
+				to_display.push(data.region_name)
+      print(context, to_display.join("\n"));
     });
   };
   get_ip = async function() {

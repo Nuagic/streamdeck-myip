@@ -22,7 +22,8 @@
   "Name": "My IP", 
   "Icon": "pluginIcon", 
   "URL": "https://github.com/Nuagic/streamdeck-myip", 
-  "Version": "1.0",
+  "PropertyInspectorPath": "code_pi.html",
+  "Version": "1.1",
   "OS": [
     {
         "Platform": "mac", 
