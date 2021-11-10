@@ -9,33 +9,36 @@
 	<body>
 		<div class="sdpi-wrapper">
 			<div type="checkbox" class="sdpi-item">
-				<div class="sdpi-item-label">IP</div>
+				<div class="sdpi-item-label">Display</div>
 				<div class="sdpi-item-value ">
 					<input id="ip" class="sdProperty sdCheckbox" type="checkbox" oninput="setSettings()" value="true">
-					<label for="ip"><span></span>Display IP</label>
+					<label for="ip"><span></span>IP</label>
 				</div>
-			</div>
-			<div type="checkbox" class="sdpi-item">
-				<div class="sdpi-item-label">ASN</div>
 				<div class="sdpi-item-value ">
 					<input id="asn" class="sdProperty sdCheckbox" type="checkbox" oninput="setSettings()" value="true">
-					<label for="asn"><span></span>Display ASN organization</label>
+					<label for="asn"><span></span>ASN</label>
 				</div>
-			</div>
-			<div type="checkbox" class="sdpi-item">
-				<div class="sdpi-item-label">Country</div>
 				<div class="sdpi-item-value ">
 					<input id="country" class="sdProperty sdCheckbox" type="checkbox" oninput="setSettings()" value="true">
-					<label for="country"><span></span>Display country</label>
+					<label for="country"><span></span>country</label>
 				</div>
-			</div>
-			<div type="checkbox" class="sdpi-item">
-				<div class="sdpi-item-label">IP</div>
 				<div class="sdpi-item-value ">
 					<input id="region" class="sdProperty sdCheckbox" type="checkbox" oninput="setSettings()" value="true">
-					<label for="region"><span></span>Display region</label>
+					<label for="region"><span></span>region</label>
 				</div>
 			</div>
+      <div type="checkbox" class="sdpi-item">
+        <div class="sdpi-item-label">IP part</div>
+        <div class="sdpi-item-value ">
+          <select class="sdProperty" id="part" oninput="setSettings()">
+            <option value="a">all</option>
+            <option value="0">1st</option>
+            <option value="1">2nd</option>
+            <option value="2">3rd</option>
+            <option value="3">4th</option>
+          </select>
+        </div>
+      </div>
 			<script>
 
 
