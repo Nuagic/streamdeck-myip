@@ -29,7 +29,9 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
     var event = jsonObj['event'];
     var context = jsonObj['context'];
     var settings = jsonObj['payload'] !== undefined && jsonObj['payload']['settings'] !== undefined ? jsonObj['payload']['settings'] : {};
-    if(event == "keyUp") {
+    if (settings["provider"] == undefined) {
+      return
+    }else if(event == "keyUp") {
       print_ip(context, settings);
     } else if(event == "willAppear") {
       print_ip(context, settings);
@@ -52,7 +54,7 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
     websocket.send(JSON.stringify(json));
   };
   print_ip = function(context, settings) {
-    get_ip().then(function(data) {
+    get_ip(settings).then(function(data) {
       //console.log(data);
 			var to_display = []
       if(settings["ip"]) {
@@ -70,10 +72,17 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
       print(context, to_display.join("\n"));
     });
   };
-  get_ip = async function() {
-    response = await fetch("https://ifconfig.co/json")
+  get_ip = async function(settings) {
+    response = await fetch(settings["provider"])
     data = await response.json();
-    return data;
+    return normalize(data);
+  };
+  normalize = function(data) {
+    if (data.organization)
+      data.asn_org = data.organization
+    if (data.region)
+      data.region_name = data.region
+    return data
   };
 };
     </script>
