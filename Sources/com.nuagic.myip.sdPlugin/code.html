@@ -57,11 +57,17 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
     get_ip(settings).then(function(data) {
       //console.log(data);
 			var to_display = []
-      if(settings["ip"]) {
-        if(settings["part"] == "a")
-				  to_display.push(data.ip)
-        else
+      if (settings["ip"]) {
+        if (settings["part"] == "a") {
+          if (settings["twoline"]) {
+            const parts = data.ip.split(/[\.:]/)
+            to_display.push(parts[0] + "." + parts[1] + ".\n" + parts[2] + "." + parts[3])
+          } else {
+            to_display.push(data.ip)
+          }
+        } else {
           to_display.push(data.ip.split(/[\.:]/)[settings["part"]])
+        }
       }
 			if(settings["asn"])
 				to_display.push(data.asn_org.replace(' ', "\n"))
